@@ -15,5 +15,10 @@
 * GOPATH=/mnt/hgfs/YunDun/Go/
 * wget https://github.com/Masterminds/glide/releases/download/v0.13.2/glide-v0.13.2-linux-amd64.tar.gz
 * ln -s /mnt/hgfs/YunDun/Go/linux-amd64/glide /usr/local/bin/glide
+
+# 
+- cd $GOPATH/src
+- git clone https://github.com/jason-gao/golangUsing
+- glide up
         
     
