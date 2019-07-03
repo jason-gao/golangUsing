@@ -7,6 +7,10 @@
 ## doc
 - https://glidedocs.readthedocs.io/zh/latest/commands/
 - https://glidedocs.readthedocs.io/zh/latest/vendor/
+- https://www.kancloud.cn/kancloud/the-way-to-go/72432
+- https://www.kancloud.cn/kancloud/effective/72199
+- https://pengrl.com/top/
+
 
 # install glide
 * https://glidedocs.readthedocs.io/zh/latest/

@@ -1,4 +1,4 @@
-package: golangusing
+package: jason-gao/golangUsing
 import:
  - package: github.com/gin-gonic/gin
    version: v1.4.0
