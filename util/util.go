@@ -36,3 +36,25 @@ func P(param ...interface{})  {
 	fmt.Println(param)
 }
 
+
+func RemoveDuplicates(elements []int) []int {
+	// Use map to record duplicates as we find them.
+	encountered := map[int]bool{}
+	result := make([]int, 0)
+
+	for k := range elements {
+
+		fmt.Println("k", k)
+		if encountered[elements[k]] == true {
+			// Do not add duplicate.
+		} else {
+			// Record this element as an encountered element.
+			encountered[elements[k]] = true
+			// Append to result slice.
+			result = append(result, elements[k])
+		}
+	}
+	// Return the new slice.
+	return result
+}
+
