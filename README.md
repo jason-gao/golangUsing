@@ -10,6 +10,7 @@
 - https://www.kancloud.cn/kancloud/the-way-to-go/72432
 - https://www.kancloud.cn/kancloud/effective/72199
 - https://pengrl.com/top/
+- https://github.com/GoesToEleven/GolangTraining
 
 
 # install glide
