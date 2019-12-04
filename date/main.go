@@ -32,5 +32,7 @@ func main() {
 	h := t.Hour()                 //小时
 	i := t.Minute()               //分钟
 	s := t.Second()               //秒
-	fmt.Println(y, m, d, h, i, s) //2018 July 11 15 24 59
+	yd := t.YearDay()
+	fmt.Println(y, m, d, h, i, s,yd) //2018 July 11 15 24 59
+
 }
