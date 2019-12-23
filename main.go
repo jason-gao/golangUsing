@@ -169,11 +169,14 @@ func main() {
 	//goroutine.Error();
 	//goroutine.TimeoutTest()
 	//goroutine.LimitTest()
-	goroutine.ReqX()
-
-
-
-
+	//goroutine.ReqX()
+	//goroutine.TestC1()
+	//goroutine.TestFb()
+	//goroutine.TestF()
+	//goroutine.TestSl()
+	//goroutine.TestSl2()
+	//goroutine.TestSl3()
+	goroutine.TestSl4()
 }
 
 

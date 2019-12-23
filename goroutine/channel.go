@@ -209,7 +209,117 @@ func onReq(r *Request) {
 	fmt.Println(r.CmdID, pos)
 }
 
+func TestC1() {
+	c := make(chan int, 2) // 一个容量为2的缓冲通道
+	c <- 3
+	c <- 5
+	close(c)
+	fmt.Println(len(c), cap(c)) // 2 2
+	x, ok := <-c
+	fmt.Println(x, ok)          // 3 true
+	fmt.Println(len(c), cap(c)) // 1 2
+	x, ok = <-c
+	fmt.Println(x, ok)          // 5 true
+	fmt.Println(len(c), cap(c)) // 0 2
+	x, ok = <-c
+	fmt.Println(x, ok) // 0 false
+	x, ok = <-c
+	fmt.Println(x, ok)          // 0 false
+	fmt.Println(len(c), cap(c)) // 0 2
+	close(c)                    // 此行将产生一个恐慌
+	c <- 7                      // 如果上一行不存在，此行也将产生一个恐慌。
+}
 
+func TestFb() {
+	var ball = make(chan string)
+	kickBall := func(playName string) {
+		for {
+			fmt.Print(time.Now(), " ", <-ball, "传球", "\n")
+			time.Sleep(time.Second)
+			ball <- playName
+		}
+	}
 
+	go kickBall("A")
+	go kickBall("B")
+	go kickBall("C")
+	go kickBall("D")
 
+	ball <- "裁判"
+	var c chan bool
+	<-c
+}
 
+func TestF() {
+	fibonacci := func() chan uint64 {
+		c := make(chan uint64)
+		go func() {
+			var x, y uint64 = 0, 1
+			for ; y < (1 << 63); c <- y { // 步尾语句
+				x, y = y, x+y
+			}
+			close(c)
+		}()
+		return c
+	}
+	c := fibonacci()
+	//for x, ok := <-c; ok; x, ok = <-c { // 初始化和步尾语句
+	//	time.Sleep(time.Second)
+	//	fmt.Println(x)
+	//}
+	for x := range c {
+		time.Sleep(time.Second)
+		fmt.Println(x)
+	}
+}
+
+//https://gfw.go101.org/article/channel.html
+func TestSl() {
+	var c chan struct{}
+	select {
+	case <-c: //阻塞
+	case c <- struct{}{}: //阻塞
+	default:
+		fmt.Println("go here.")
+	}
+}
+
+func TestSl2() {
+	select {}
+}
+
+func TestSl3() {
+	c := make(chan string, 2)
+	trySend := func(v string) {
+		select {
+		case c <- v: //c缓冲满，执行default
+		default:
+			fmt.Println("go here.")
+		}
+	}
+	tryReceive := func() string {
+		select {
+		case v := <-c:
+			return v
+		default:
+			return "-"
+		}
+	}
+	trySend("A")
+	trySend("B")
+	trySend("C") //发送失败，但不会阻塞
+
+	fmt.Println(tryReceive())
+	fmt.Println(tryReceive())
+	fmt.Println(tryReceive()) //接收失败
+
+}
+
+func TestSl4() {
+	c := make(chan struct{})
+	close(c)
+	select {
+	case c <- struct{}{}: // 若此分支被选中，则产生一个恐慌
+	case <-c:
+	}
+}

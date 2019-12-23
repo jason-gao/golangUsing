@@ -1,0 +1,1 @@
+- https://github.com/go101/go-benchmarks/blob/master/select/select_test.go
