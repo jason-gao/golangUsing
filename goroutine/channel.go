@@ -2,6 +2,7 @@ package goroutine
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"time"
 )
@@ -322,4 +323,25 @@ func TestSl4() {
 	case c <- struct{}{}: // 若此分支被选中，则产生一个恐慌
 	case <-c:
 	}
+}
+
+func longTimeRequest() <-chan int32 {
+	r := make(chan int32)
+	go func() {
+		time.Sleep(time.Second * 3) //模拟耗时任务
+		r <- rand.Int31n(100)
+	}()
+
+	return r
+}
+
+func sumS(a, b int32) int32 {
+	return a*a + b*b
+}
+
+func TestSl5() {
+	rand.Seed(time.Now().UnixNano())
+	a, b := longTimeRequest(), longTimeRequest()
+
+	fmt.Println(sumS(<-a, <-b))
 }
